@@ -1,0 +1,14 @@
+<h1><%= @user.name %></h1>
+
+<p>I'm a host of the following events:</p>
+
+<% if @user.events.any? %>
+<ul>
+ <%= render @user.events %> 
+
+</ul>
+
+<% end %>
+
+
+<h4><%= link_to "New Event", new_event_path %></h4>

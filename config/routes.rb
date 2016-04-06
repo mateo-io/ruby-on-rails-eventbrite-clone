@@ -1,10 +1,22 @@
 Rails.application.routes.draw do
+
+  get 'events/create'
+
+  get 'events/show'
+
+  get 'create/show'
+
+  get 'signup' => 'pages#signup'
+  post 'signup' => 'pages#create'
+  resources :users, only: [:new, :show, :create]
+  resources :events
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-
+  root 'pages#signup'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

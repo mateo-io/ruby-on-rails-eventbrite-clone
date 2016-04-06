@@ -1,0 +1,17 @@
+<h1> Log In </h1>
+
+<%= form_for(:pages, url: signup_path) do |f| %>
+
+<%= f.label :name %>
+<%= f.text_field :name%>
+
+<%= f.submit "Log In"%>
+
+<% end %> 
+
+<p>Try Juan, Matt or Carl</p>
+
+
+<h1> Create a New User here </h1>
+
+<%= link_to "Click here", new_user_path %>

@@ -1,0 +1,13 @@
+<h1>Create User Here Folks!</h1>
+<h4>Limited availability. HURRY!</h4>
+
+
+
+<%= form_for(@user) do |f| %>
+
+<%= f.label :name %>
+<%= f.text_field :name %>
+
+<%= f.submit "Create" %>
+
+<% end %>
