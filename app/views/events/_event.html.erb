@@ -1,18 +1,18 @@
-<h2><%=event.description%></h2>
+<h4><%=event.description%></h4>
 
 <b>Event Date: </b><%= event.date.strftime("%A") %>, <%= event.date.strftime("%B")%> <%= event.date.day %> 
 of <%= event.date.strftime("%Y") %>
 
 
-<% if @user && !event.atendees.where(id: @user.id).any? %> <!-- User exists and is not in the event -->
+<% if current_user && !current_user.attended_events.where(id: event.id).any? %> <!-- User exists and is not in the event -->
 
-<%= link_to "Count me in!", go_to(event).first  %>
+<%= link_to "Count me in!", {:controller => "pages", :action => "go_to", :event=> event}  %>
 
-<% elsif @user %>
+<% elsif current_user && event.creator!=current_user %>
 
-<h5> Going! </h5>
-<%= link_to "Not going", root_path %>
-
+<p><b> Going! </b>
+<%= link_to "Changed my mind!", {:controller => "pages", :action => "dont_go", :event=> event}  %>
+</p>
 <% end %>
 
 <p> Created by: <%= event.creator.name  %></p>

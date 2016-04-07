@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
 
   get 'events/create'
-
   get 'events/show'
-
   get 'create/show'
 
   get 'signup' => 'pages#signup'
   post 'signup' => 'pages#create'
+
+  get 'addEvent' => 'pages#go_to'
+  get 'removeEvent' => 'pages#dont_go'
+
   resources :users, only: [:new, :show, :create]
   resources :events
 
