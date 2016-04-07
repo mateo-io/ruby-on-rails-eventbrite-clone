@@ -15,6 +15,7 @@ class EventsController < ApplicationController
     @user.events.build(description: event[:description], date: date_from_date_select_params(event, :date))
   	if @user.save
   		flash[:success]="You have created an event"
+      @user.attended_events<<event
   		redirect_to @user
   	else
   		flash.now[:failure]="Please enter valid fields"
