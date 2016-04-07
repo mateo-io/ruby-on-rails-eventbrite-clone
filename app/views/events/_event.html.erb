@@ -1,2 +1,18 @@
-<li> Event created <b><%= time_ago_in_words(event.date) %></b> ago</li>
+<h2><%=event.description%></h2>
+
+<b>Event Date: </b><%= event.date.strftime("%A") %>, <%= event.date.strftime("%B")%> <%= event.date.day %> 
+of <%= event.date.strftime("%Y") %>
+
+
+<% if @user && !event.atendees.where(id: @user.id).any? %> <!-- User exists and is not in the event -->
+
+<%= link_to "Count me in!", go_to(event).first  %>
+
+<% elsif @user %>
+
+<h5> Going! </h5>
+<%= link_to "Not going", root_path %>
+
+<% end %>
+
 <p> Created by: <%= event.creator.name  %></p>

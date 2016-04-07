@@ -12,7 +12,7 @@ class PagesController < ApplicationController
 			redirect_to @user
 		else
 			flash.now[:failure]="User doesn't exist"
-			render 'signin'
+			render 'signup'
 		end
 	end
 end

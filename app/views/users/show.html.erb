@@ -1,14 +1,25 @@
+<% if @user %>
 <h1><%= @user.name %></h1>
 
-<p>I'm a host of the following events:</p>
+<h2>Hosting:</h2>
 
 <% if @user.events.any? %>
-<ul>
- <%= render @user.events %> 
 
-</ul>
+<%= render @user.events %> 
+
+<% end %>
+
+<% if @user.attended_events.any? %>
+
+<h2>Attending: </h2>
+
+<%= render @user.attended_events %>
 
 <% end %>
 
 
-<h4><%= link_to "New Event", new_event_path %></h4>
+<% else %>
+
+<h1> User doesn't exist </h1>
+
+<% end %>

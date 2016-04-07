@@ -1,5 +1,14 @@
-<h1>Event Information</h1>
-
-
 <%= render @event %>
+
+<% if @event.atendees.any? %>
+
+<h2>Event Antendees</h2>
+
+<% @event.atendees.each do |user| %>
+
+<p><%= user.name %> </p>
+
+<% end %>
+
+<% end %>
 
