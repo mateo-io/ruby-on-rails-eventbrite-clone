@@ -18,6 +18,6 @@
 <p class='flash'> <%= flash[:success] || flash[:failure] unless flash.empty? %></p>
 <%= yield %>
 </div>
-
+<%= javascript_include_tag "application" %>
 </body>
 </html>

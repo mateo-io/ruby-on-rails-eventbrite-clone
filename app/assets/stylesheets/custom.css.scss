@@ -23,6 +23,9 @@ header{
 	border-color: gray;
 	line-height: 5em;
 	margin-left: 10em;
+	width: 9em;
+
+
 	
 
 	a{
@@ -34,10 +37,12 @@ header{
 		height: 100%;
 
 
-
+		.active{
+	background-color:white;
+}
 		
 		&:active{
-			background-color: gray;
+			background-color: white;
 		}
 
 
@@ -45,7 +50,6 @@ header{
 			text-decoration: none;
 			background-color: navy;
 		}
-
 
 	}
 }
