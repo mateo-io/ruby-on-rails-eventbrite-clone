@@ -5,11 +5,11 @@
 of <%= event.date.strftime("%Y") %>
 <p> Created by: <%= event.creator.name  %></p>
 
-<% if current_user && !current_user.attended_events.where(id: event.id).any? %> <!-- User exists and is not in the event -->
+<% if current_user && !current_user.attended_events.where(id: event.id).any? && event.date>Time.now %> <!-- User exists and is not in the event -->
 <p><b> Not Going T_T </b></p>
 <p><%= link_to "Count me in!", {:controller => "pages", :action => "go_to", :event=> event}  %></p>
 
-<% elsif current_user && event.creator!=current_user %>
+<% elsif current_user && event.creator!=current_user && event.date>Time.now %>
 
 <p><b> Going! </b></p>
 <p><%= link_to "Changed my mind!", {:controller => "pages", :action => "dont_go", :event=> event}  %></p>

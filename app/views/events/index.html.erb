@@ -1,7 +1,28 @@
-<h1> Event Index </h1>
+<h1> Past Events </h1>
 
-<% if @events.any? %>
+<% if Event.past.any? %>
+	
+<%= render Event.past %>
 
-<%= render @events %>
+<% else %>
+
+<h4> NO EVENTZ T_T >.< </h4>
+
 <% end %>
+
+
+<h1> Future Events </h1>
+
+<% if Event.future.any? %>
+	
+<%= render Event.future %>
+
+<% else %>
+
+<h4> NO EVENTZ T_T >.< </h4>
+
+<% end %>
+
+
+
 

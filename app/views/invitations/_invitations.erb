@@ -1,0 +1,47 @@
+<div class="event">
+<h1><%=event.description%></h1>
+
+<b>Event Date: </b><%= event.date.strftime("%A") %>, <%= event.date.strftime("%B")%> <%= event.date.day %> 
+of <%= event.date.strftime("%Y") %>
+
+<p> Created by: <%= event.creator.name  %></p>
+
+<!-- FINISH BASIC LAYOUT -->
+
+
+
+ <!-- User exists and is not in the event -->
+<% if current_user && !current_user.attended_events.where(id: event.id).any? %>
+
+<p><%= link_to "Accept Invitation", {:controller => "pages", :action => "go_to", :event=> event, :user=>current_user}  %></p>
+
+<p><%= link_to "Decline Invitation", {:controller => "pages", :action => "clear_invitation", :event=> event, :user=>current_user}  %></p>
+<% end %>
+
+
+<!-- IF USER SENT INVITATIONS, INVITATIONS SENT -->
+<% invite=Invitation.find_by(event_id: event.id) %>
+
+
+<% if invite && invite.inviter==current_user.id  %>
+
+
+<p>Sent to: <%=User.find_by(id: invite.user_id).name %></p>
+
+
+<% if User.find_by(id: invite.user_id).attended_events.find_by(id: invite.event_id) %>
+
+ <% goingStatus="Going!" %>
+
+<% else %>
+ 
+<% goingStatus="Deciding" %> 
+
+<% end %>
+
+
+<p><b><%=goingStatus%></b></p>
+
+<% end %>
+
+</div>

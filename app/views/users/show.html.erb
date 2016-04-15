@@ -1,28 +1,37 @@
-<% if @user %>
-<h1><%= @user.name %>'s Profile</h1>
+	<% if @user %>
+		<h1><%= @user.name %>'s Profile</h1>
 
-<h1>Hosting:</h1>
+		<h1>Hosting:</h1>
 
-<% if @user.events.any? %>
+		<% if @user.events.any? %>
 
-<%= render @user.events %> 
+			<%= render @user.events %> 
 
-<% end %>
+		<% end %>
 
-<% if @user.attended_events.any? %>
+	<div>
+		<% if @user.previous_events.any? %>
 
-<div>
-<h1>Attending: </h1>
+			
+			<h1>Previous Events: </h1>
 
-<%= render @user.attended_events %>
+			<%= render @user.previous_events %>
 
-<% end %>
+		<% end %>
+
+		<% if @user.upcoming_events.any? %>
+
+			<h1>Upcoming Events: </h1>
+
+			<%= render @user.upcoming_events %>
+
+		<% end %>
 
 
-<% else %>
+	<% else %>
 
-<h1> User doesn't exist </h1>
+		<h1> User doesn't exist </h1>
 
-<% end %>
+	<% end %>
 
-</div>
+	</div>

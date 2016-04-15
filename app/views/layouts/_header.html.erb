@@ -1,22 +1,30 @@
-<div class="btn-group">
+<header class="navbar navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="btn-group">
 
-<% if current_user %>
-<button type="button "class="btn btn-lg"><%= link_to current_user.name, current_user %></button>
+		<% if current_user %>
+		<button type="button "class="btn btn-lg"><%= link_to current_user.name, current_user %></button>
 
-<button type="button" class="btn btn-lg"><%= link_to "Log Out", root_path %></button>
+		<button type="button" class="btn btn-lg"><%= link_to "Log Out", root_path %></button>
 
-<button type="button" class="btn btn-lg"><%= link_to "New Event", new_event_path %></button>
+		<button type="button" class="btn btn-lg"><%= link_to "New Event", new_event_path %></button>
 
-<button type="button" class="btn btn-lg"><%= link_to "All Events", events_path %></button>
+		<button type="button" class="btn btn-lg"><%= link_to "All Events", events_path %></button>
+
+		<button type="button" class="btn btn-lg"><%= link_to "Invitations", new_invitation_path %></button>
 
 
 
-<% else %>
+		<% else %>
 
-<button type="button" class="btn btn-lg"><%= link_to "Home", root_path %></button>
+		<button type="button" class="btn btn-lg"><%= link_to "Home", root_path %></button>
 
-<button type="button" class="btn btn-lg"><%= link_to "All Events", events_path %></button>
+		<button type="button" class="btn btn-lg"><%= link_to "All Events", events_path %></button>
 
-<% end %>
+		<% end %>
+
+		</div>
+
 
 </div>
+</header>

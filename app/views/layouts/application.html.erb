@@ -8,14 +8,11 @@
 </head>
 <body>
 
-<header class="navbar navbar-fixed-top navbar-inverse">
-<div class="container">
 <%= render 'layouts/header' %>
-</div>
-</header>
+
 
 <div class="container">
-<p class='flash'> <%= flash[:success] || flash[:failure] unless flash.empty? %></p>
+<h2 class='flash'> <%= flash[:success] || flash[:danger] unless flash.empty? %></h2>
 <%= yield %>
 </div>
 <%= javascript_include_tag "application" %>

@@ -9,11 +9,12 @@ body {
 header{
 	text-align: center;
 	padding-bottom: 0em;
-
 }
 
 .navbar-inverse{
 	background: gray;
+
+
 }
 
 
@@ -37,13 +38,7 @@ header{
 		height: 100%;
 
 
-		.active{
-	background-color:white;
-}
 		
-		&:active{
-			background-color: white;
-		}
 
 
 		&:hover{
@@ -102,13 +97,21 @@ h1 {
 }
 
 h2 {
-  font-size: 1.2em;
+  font-size: 1.7em;
   letter-spacing: -1px;
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
   color: #777;
 }
+
+h3 {
+  font-size: 1.4em;
+  letter-spacing: -1px;
+  text-align: center;
+  
+}
+
 
 p {
   font-size: 1.1em;
