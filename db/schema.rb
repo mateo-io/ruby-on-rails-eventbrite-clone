@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160408225645) do
+ActiveRecord::Schema.define(version: 20160422194239) do
 
   create_table "events", force: :cascade do |t|
     t.integer  "user_id"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20160408225645) do
     t.integer "user_id"
     t.integer "event_id"
     t.integer "inviter"
+    t.integer "show",     default: 1
   end
 
   add_index "invitations", ["event_id"], name: "index_invitations_on_event_id"

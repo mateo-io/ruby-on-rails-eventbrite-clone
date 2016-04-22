@@ -22,20 +22,22 @@ class PagesController < ApplicationController
 		event=Event.where(id: params[:event]).take
 		@user=current_user
 		@user.attended_events<<event unless event.atendees.where(id: current_user.id).any?
-     	clear_invitation
-
+     	#HERE LIES THE PROBLEM (THEY DONT CHANGE INVITATION SHOW)
+     	invitation_status(2)
 	end
 
 	def dont_go
 		event=Event.where(id: params[:event]).take
 		current_user.attended_events.delete(event) 
-		clear_invitation
+		invitation_status(0)
 	end
 
-	def clear_invitation
+	def invitation_status(decision)
 		invitation=Invitation.find_by(event_id: params[:event], user_id: params[:user])
-		invitation.destroy
+		invitation.update_attribute(:show, decision) if invitation
+
 		redirect_to request.referrer or root_path
+
 	end
 
 end

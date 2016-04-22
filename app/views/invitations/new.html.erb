@@ -22,17 +22,17 @@
 
 <h1> Pending Invitations </h1>
 
-<!-- DOESNT SHOW PAST INVITATIONS BUT DOESN'T DELETE THEM EITHER, GARBAGE COLLECTION? -->
-<% if current_user.invited_events.future.any? %>
+<!-- User has invitations pending, show:1 -->
 
-<% current_user.invited_events.each  do |invites|  %>
+<% current_user.invited_events.future.each  do |invites|  %>
+<% invite=Invitation.find_by(event_id: invites.id, user_id: invites.user_id) %>
 
+<% if invite && invite.show==1 %>
 <%= render 'invitations', event: invites%>
-
-
-<% end %>
 <% end %>
 
+<% end %>
+<!-- -->
 
 <h1> Invitations Sent</h1>
 
