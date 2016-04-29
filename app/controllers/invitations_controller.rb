@@ -33,7 +33,8 @@ class InvitationsController < ApplicationController
 
    def new
   	@invitation=Invitation.new
-  	#@events=current_user.invited_events if current_user.invited_events.any?
+  	@event_options=current_user.attended_events.future.map{|u| u.description }
+    @names_options=User.all.reject{|u| u==current_user}.map{|u| u.name } 
   end
 
   def destroy

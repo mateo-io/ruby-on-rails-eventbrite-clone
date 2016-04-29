@@ -2,15 +2,12 @@
 
 <%= form_for(@invitation) do |f| %>
 
-<% userArray=User.all.select{|u| u.name unless u==current_user }%>
-<% names=userArray.map{|u| u.name} %>
-<% events=current_user.attended_events.future.map{|u| u.description} %>
 
 <%= f.label :event %>
-<%= f.select :event, events %>
+<%= f.select :event, options_for_select(@event_options) %>
 
 <%= f.label :user %>
-<%= f.select :user, names %>
+<%= f.select :user, options_for_select(@names_options) %>
 
 <%= f.submit "Send" %>
 
