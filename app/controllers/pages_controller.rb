@@ -22,7 +22,6 @@ class PagesController < ApplicationController
 		event=Event.where(id: params[:event]).take
 		@user=current_user
 		@user.attended_events<<event unless event.atendees.where(id: current_user.id).any?
-     	#HERE LIES THE PROBLEM (THEY DONT CHANGE INVITATION SHOW)
      	invitation_status(2)
 	end
 
@@ -38,6 +37,12 @@ class PagesController < ApplicationController
 
 		redirect_to request.referrer or root_path
 
+	end
+
+	def destroy_invitation
+		invitation=Invitation.find_by(event_id: params[:event], inviter: params[:user])
+		invitation.destroy!
+		redirect_to new_invitation_path
 	end
 
 end

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'addEvent' => 'pages#go_to'
   get 'removeEvent' => 'pages#dont_go'
   get 'notgoing' => 'pages#clear_invitation'
+  get 'destroyInv' => 'pages#destroy_invitation'
   
   resources :invitations, only: [:new, :create, :destroy]
   resources :users, only: [:new, :show, :create]

@@ -5,36 +5,48 @@ class InvitationsController < ApplicationController
   def create
   	#Not taking into account, duplicate users, and events with the same name by the same user.
   	
-  	#user being invited
-  	@user=User.find_by(name: params[:invitation][:user])
+  	#User being invited
+  	@user=User.find_by(id: params[:invitation][:user])
  
-
   	#event being invited to
-  	@event=Event.find_by(description: params[:invitation][:event])
+  	@event=Event.find_by(id: params[:invitation][:event])
 
 
-#Don't send more than one invite
-  	#Event not in user.attended_events
-  	if  (!(@user.attended_events.find_by(id: @event.id).nil?) || !(@user.invitations.find_by(event_id: @event.id).nil?) )
+    invite=Invitation.find_by(event_id: @event.id, user_id: @user.id)
+    #invite is nil if it doesn't exist. We have to check because they are never deleted.
 
-  		flash[:danger]="User is already invited to the event"
+    #User not in attended events
+  	if  @user.attended_events.find_by(id: @event.id)
+
+  		flash[:danger]="#{@user.name} is already going to the event"
   		redirect_to new_invitation_path and return
 
+    #An invite already exists
+    elsif  invite
+      invite.show=1
+      if invite.save
+        flash[:success]="User was reinvited!"
+        redirect_to new_invitation_path
+      else
+        flash[:danger]="Couldn't invite the user"
+        redirect_to new_invitation_path
+      end
+    
+    #Create the invitation
+    else
+        @user.invitations.build(event_id: @event.id, inviter: session[:id]) #Why does current_user.id not work?
+        @user.save
+        flash[:success]="Invitation was SENT!"
+        redirect_to new_invitation_path
+
   	end
-
-
-  	#Inviter is current user, invitee is @user
-  	@user.invitations.build(event_id: @event.id, inviter: session[:id]) #Why does current_user.id not work?
-  	@user.save
-  	flash[:success]="Invitation was SENT!"
-  	redirect_to new_invitation_path
     	
   end
 
    def new
   	@invitation=Invitation.new
-  	@event_options=current_user.attended_events.future.map{|u| u.description }
-    @names_options=User.all.reject{|u| u==current_user}.map{|u| u.name } 
+  	@event_options=current_user.attended_events.future.map{|e| [e.description, e.id] }
+    @names_options=User.all.reject{|u| u==current_user}.map{|u| [u.name, u.id] } 
   end
 
   def destroy

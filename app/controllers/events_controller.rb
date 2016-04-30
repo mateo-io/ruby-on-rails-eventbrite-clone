@@ -8,9 +8,6 @@ class EventsController < ApplicationController
   def create
     event=params[:event]
   	@user=User.find_by(id: session[:id])
-  	
-    #@user.events.build(description: event[:description], date: Date.new(event["date(1i)"].to_i, \
-    #  event["date(2i)"].to_i, event["date(3i)"].to_i) )
     
     @user.events.build(description: event[:description], date: date_from_date_select_params(event, :date))
     if @user.save
@@ -32,3 +29,8 @@ class EventsController < ApplicationController
   	@event=Event.new
   end
 end
+
+
+#DATES REFERENCE
+#@user.events.build(description: event[:description], date: Date.new(event["date(1i)"].to_i, \
+    #  event["date(2i)"].to_i, event["date(3i)"].to_i) )

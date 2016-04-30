@@ -18,18 +18,22 @@
 
 
 <h1> Pending Invitations </h1>
-
 <!-- User has invitations pending, show:1 -->
 
-<% current_user.invited_events.future.each  do |invites|  %>
-<% invite=Invitation.find_by(event_id: invites.id, user_id: invites.user_id) %>
+<% Event.future.each  do |event_f|  %>
+<% invite=Invitation.find_by(event_id: event_f.id, user_id: current_user.id) %>
+
+
 
 <% if invite && invite.show==1 %>
-<%= render 'invitations', event: invites%>
+
+<%= render 'invitations', user: current_user, event: event_f %>
 <% end %>
 
 <% end %>
 <!-- -->
+
+
 
 <h1> Invitations Sent</h1>
 
@@ -37,9 +41,10 @@
 
 <% Invitation.where(inviter: current_user.id).each do |invites| %>
 
-<% event=Event.where(id: invites.event_id).take %>
+<% event=Event.find_by(id: invites.event_id) %>
+<% user=User.find_by(id: invites.user_id) %>
 <p> 
-<%= render 'invitations', event: event%>
+<%= render 'invitations', user: user, event: event %>
 </p>
 
 <% end %>

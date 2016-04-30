@@ -1,9 +1,12 @@
 <div class="event">
-<h1><%=event.description%></h1>
+<h1><%= link_to event.description, event_path(event) %> </h1>
 
 <b>Event Date: </b><%= event.date.strftime("%A") %>, <%= event.date.strftime("%B")%> <%= event.date.day %> 
 of <%= event.date.strftime("%Y") %>
 <p> Created by: <%= event.creator.name  %></p>
+<% if current_user.name==event.creator.name %>
+<h3><b>Host</b></h3>
+<% end %>
 
 <% if current_user && !current_user.attended_events.where(id: event.id).any? && event.date>Time.now %> <!-- User exists and is not in the event -->
 <p><b> Not Going T_T </b></p>

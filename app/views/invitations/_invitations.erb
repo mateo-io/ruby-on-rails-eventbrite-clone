@@ -1,4 +1,4 @@
-<% invite=Invitation.find_by(event_id: event.id) %>
+<% invite=Invitation.find_by(event_id: event.id, user_id: user.id) %>
 
 
 <div class="event">
@@ -8,6 +8,10 @@
 of <%= event.date.strftime("%Y") %>
 
 <p> Created by: <%= event.creator.name  %></p>
+
+<% unless current_user.id==invite.inviter %>
+<p> Sent by: <%= User.find_by_id(invite.inviter).name %> </p>
+<% end %>
 
 <!-- FINISH BASIC LAYOUT -->
 
@@ -46,6 +50,9 @@ of <%= event.date.strftime("%Y") %>
 
 
 <p><b><%=goingStatus%></b></p>
+
+<!-- delete invitation -->
+<%= link_to "Delete Invitation", {:controller => "pages", :action => "destroy_invitation", :event=> event, :user=>current_user} %>
 
 <% end %>
 
