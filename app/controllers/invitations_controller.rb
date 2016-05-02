@@ -45,7 +45,14 @@ class InvitationsController < ApplicationController
 
    def new
   	@invitation=Invitation.new
-  	@event_options=current_user.attended_events.future.map{|e| [e.description, e.id] }
+    
+    @pending_invites=Invitation.where(user_id: current_user.id, show:1).each do |inv|
+      inv if (inv && Event.find_by_id(inv.event_id).date>Time.now)      
+    end 
+  	
+    @sent_invites=Invitation.where(inviter: current_user.id)
+
+    @event_options=current_user.attended_events.future.map{|e| [e.description, e.id] }
     @names_options=User.all.reject{|u| u==current_user}.map{|u| [u.name, u.id] } 
   end
 

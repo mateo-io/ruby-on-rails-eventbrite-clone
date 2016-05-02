@@ -1,10 +1,12 @@
-<% invite=Invitation.find_by(event_id: event.id, user_id: user.id) %>
+<% event=Event.find_by_id(invite.event_id) %>
+<% user=current_user %>
 
-
+<!-- BASIC LAYOUT -->
 <div class="event">
 <h1><%=event.description%></h1>
 
-<b>Event Date: </b><%= event.date.strftime("%A") %>, <%= event.date.strftime("%B")%> <%= event.date.day %> 
+<b>Event Date: </b>
+<%= event.date.strftime("%A") %>, <%= event.date.strftime("%B")%> <%= event.date.day %> 
 of <%= event.date.strftime("%Y") %>
 
 <p> Created by: <%= event.creator.name  %></p>
@@ -12,28 +14,25 @@ of <%= event.date.strftime("%Y") %>
 <% unless current_user.id==invite.inviter %>
 <p> Sent by: <%= User.find_by_id(invite.inviter).name %> </p>
 <% end %>
-
-<!-- FINISH BASIC LAYOUT -->
-
+<!-- FINISH LAYOUT -->
 
 
- <!-- User exists and is not in the event -->
+ <!-- USER NOT IN THE EVENT -->
 <% if current_user && !current_user.attended_events.where(id: event.id).any? %>
 
 <p><%= link_to "Accept Invitation", {:controller => "pages", :action => "go_to", :event=> event, :user=>current_user}  %></p>
 
 <p><%= link_to "Decline Invitation", {:controller => "pages", :action => "dont_go", :event=> event, :user=>current_user}  %></p>
 <% end %>
+<!-- END -->
 
 
-<!-- IF USER SENT INVITATIONS, INVITATIONS SENT -->
+<!-- IF CURRENT USER SENT INVITATION -->
 <% if invite && invite.inviter==current_user.id  %>
-
 
 <p>Sent to: <%=User.find_by(id: invite.user_id).name %></p>
 
 
-<!-- User is the one who invited person -->
 <% if invite.show==2 %>
 
  <% goingStatus="GOING WITH YOU!" %>
@@ -50,6 +49,7 @@ of <%= event.date.strftime("%Y") %>
 
 
 <p><b><%=goingStatus%></b></p>
+
 
 <!-- delete invitation -->
 <%= link_to "Delete Invitation", {:controller => "pages", :action => "destroy_invitation", :event=> event, :user=>current_user} %>

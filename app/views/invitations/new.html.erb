@@ -1,51 +1,13 @@
-<h1> Invite Users </h2>
 
-<%= form_for(@invitation) do |f| %>
-
-
-<%= f.label :event %>
-<%= f.select :event, options_for_select(@event_options) %>
-
-<%= f.label :user %>
-<%= f.select :user, options_for_select(@names_options) %>
-
-<%= f.submit "Send" %>
-
-<% end %>
-
-
-<h3>Reference: Try to add boxes with event/user name inside them instead of dropdowns</h3>
-
-
-<h1> Pending Invitations </h1>
-<!-- User has invitations pending, show:1 -->
-
-<% Event.future.each  do |event_f|  %>
-<% invite=Invitation.find_by(event_id: event_f.id, user_id: current_user.id) %>
+<%= render 'new_invite' %>
 
 
 
-<% if invite && invite.show==1 %>
-
-<%= render 'invitations', user: current_user, event: event_f %>
-<% end %>
-
-<% end %>
-<!-- -->
+<p>Future: Add boxes with event/user name inside them instead of dropdowns</p>
 
 
 
-<h1> Invitations Sent</h1>
+<%= render 'pending_invites' %>
 
-<% if Invitation.find_by(inviter: current_user.id) %>
 
-<% Invitation.where(inviter: current_user.id).each do |invites| %>
-
-<% event=Event.find_by(id: invites.event_id) %>
-<% user=User.find_by(id: invites.user_id) %>
-<p> 
-<%= render 'invitations', user: user, event: event %>
-</p>
-
-<% end %>
-<% end %>
+<%= render 'sent_invites' %>

@@ -1,0 +1,15 @@
+<h1> Invite Users </h2>
+
+<%= form_for(@invitation) do |f| %>
+
+
+<%= f.label :event %>
+<%= f.select :event, @event_options %>
+
+<%= f.label :user %>
+<%= f.select :user, @names_options %>
+
+<%= f.submit "Send" %>
+
+<% end %>
+
