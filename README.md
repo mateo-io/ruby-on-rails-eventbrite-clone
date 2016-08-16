@@ -5,7 +5,7 @@
 This project evaluates the modeling of a many to many relationship between **User** and **Event**. 
 And the corresponding associations and methods required to make a functioning web application. 
 
-##### Click here to open it(https://eventbrite-clone.herokuapp.com/)
+##### [Click here to open it](https://eventbrite-clone.herokuapp.com/)
 
 
 ##### Credit
